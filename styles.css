@@ -1,0 +1,362 @@
+/*body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+*/
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+  grid-template-rows: 0.25fr auto auto; /* Automatically adjust rows */
+  grid-gap: 50px; /* Adjust the gap between grid items */
+  margin: 0px;
+  padding: 0;
+  background-color: white;
+background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23737f81' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:focus {
+  outline: 0;
+}
+.toggle-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2%;
+}
+
+.toggle {
+  height: 32px;
+  width: 52px;
+  border-radius: 16px;
+  display: block;
+  position: relative;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  border: 2px solid #474755;
+  background: linear-gradient(180deg, #2d2f39 0%, #1f2027 100%);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.toggle:after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);
+  transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
+}
+
+.toggle:checked {
+  border-color: #f60000;
+}
+
+.toggle:checked:after {
+  transform: translateX(20px);
+}
+
+#buttons-container {
+  width: 100px; /* Adjust the width of the buttons container */
+}
+
+/* Define grid areas for different sections */
+#simulation-container {
+  grid-column: 1 / span 1; /* Span 1 column */
+  grid-row: 1 / span 4; /* Span 2 rows */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#event-section {
+  grid-column: 2 / span 2; /* Span 1 column */
+  grid-row: 3 / span 2; /* Span 1 row */
+  justify-content: center;
+  align-items: center;
+}
+
+#download-section {
+  grid-column: 2 / span 1; /* Span 1 column */
+  grid-row: 3 / span 1; /* Span 1 row */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#start-section {
+  grid-column: 2 / span 1; /* Span 1 column */
+  grid-row: 2 / span 1; /* Span 1 row */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#bar-diagram-section {
+  grid-column: 2 / span 1; /* Span 1 column */
+  grid-row: 1 / span 1; /* Span 1 row */
+  justify-content: center;
+  align-items: center;
+}
+
+#start-section button {
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  background-color: rgb(27, 27, 27);
+  color: white;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.11);
+}
+
+#start-section button:hover {
+  background-color: rgb(150, 94, 255);
+  transition-duration: 0.3s;
+}
+
+#start-section input[type="range"] {
+  width: 120px;
+  height: 30px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  background-color: rgb(27, 27, 27);
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  -webkit-appearance: none;
+}
+
+#start-section input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#start-section input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background-color: rgb(214, 178, 255);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#start-section input[type="range"]:hover {
+  background-color: rgb(150, 94, 255);
+}
+
+#start-section input[type="range"]:active {
+  background-color: rgb(150, 94, 255);
+}
+
+#start-section input[type="range"]::-moz-range-track,
+#start-section input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px;
+  background-color: rgb(182, 143, 255);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#start-section input[type="range"]::-moz-range-track:hover,
+#start-section input[type="range"]::-webkit-slider-runnable-track:hover {
+  background-color: rgb(150, 94, 255);
+}
+
+#habitatMatrix {
+  grid-column: 1 / span 6; /* Span 6 columns */
+  grid-row: 1;
+}
+
+#habitatMatrix td {
+  border: 2px solid black;
+  width: 70px; /* Increase the width of the cells */
+  height: 70px; /* Increase the height of the cells */
+  text-align: center;
+  vertical-align: middle; /* Vertically center content */
+  position: relative;
+}
+
+.cell-content {
+  width: 76px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ensure the .cell-content div takes full height */
+}
+
+.plant-img {
+  width: 70px; /* Set the width of the plant image */
+  height: 70px; /* Set the height of the plant image */
+  margin-bottom: 6px;
+}
+
+.emoji {
+  white-space: nowrap;
+  position: absolute;
+  margin-top: 5px;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Btn {
+  width: 75px;
+  height: 75px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgb(27, 27, 27);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.11);
+}
+
+.svgIcon {
+  fill: rgb(255, 255, 255);
+}
+
+.icon2 {
+  width: 18px;
+  height: 5px;
+  border-bottom: 2px solid rgb(255, 255, 255);;
+  border-left: 2px solid rgb(255, 255, 255);
+  border-right: 2px solid rgb(255, 255, 255);
+}
+
+.tooltip {
+  position: absolute;
+  right: -105px;
+  opacity: 0;
+  background-color: rgb(12, 12, 12);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.2s;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+}
+
+.tooltip::before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: rgb(12, 12, 12);
+  background-size: 1000%;
+  background-position: center;
+  transform: rotate(45deg);
+  left: -5%;
+  transition-duration: 0.3s;
+}
+
+.Btn:hover .tooltip {
+  opacity: 1;
+  transition-duration: 0.3s;
+}
+
+.Btn:hover {
+  background-color: rgb(150, 94, 255);
+  transition-duration: 0.3s;
+}
+
+.Btn:hover .icon2 {
+  border-bottom: 2px solid rgb(235, 235, 235);
+  border-left: 2px solid rgb(235, 235, 235);
+  border-right: 2px solid rgb(235, 235, 235);
+}
+
+.Btn:hover .svgIcon {
+  fill: rgb(255, 255, 255);
+  animation: slide-in-top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+#plantsValue{
+  margin-bottom: 10px;
+  margin-left: 4px;
+}
+#butterfliesValue{
+  margin-bottom: 10px;
+  margin-left: 4px;
+}
+#download-section{
+  margin-bottom: 0px;
+  margin-top: 50px;
+  margin-left: 600px;
+  
+}
+#StartingPlants{
+  margin-bottom:10px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+#Schmetterlinge{
+  margin-bottom:10px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+#Regen{
+  margin-bottom:10px;
+  margin-left: 10px;
+}
+#Next{
+  margin-left: 10px;
+}
+#butterfliesSlider{
+  margin-bottom:10px;
+  margin-left: 4px;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+
+
+.skullemoji {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

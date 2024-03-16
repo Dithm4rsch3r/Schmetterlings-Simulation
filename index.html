@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Population Simulation</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div id="simulation-container">
+      <table id="habitatMatrix"></table>
+    </div>
+
+    <!-- Section for event toggle buttons -->
+    <div class="section" id="event-section">
+      <div
+        title="Der Starkregen tötet bis zu 30% der Raupen und 50% der Schmetterlinge"
+        class="toggle-container"
+      >
+        <input type="checkbox" class="toggle" id="toggle1" />
+        <label for="toggle1"></label>
+        <span id="Regen" ><b>Starkregen</b></span>
+      </div>
+
+      <div
+        title="Die Pestizide töten bis zu 10% der Eier, 90% der Raupen und 60% der Schmetterlinge"
+        class="toggle-container"
+      >
+        <input type="checkbox" class="toggle" id="toggle2" />
+        <label for="toggle2"></label>
+        <span id="Regen" ><b>Pestizid</b></span>
+      </div>
+
+      <div
+        title="Die Mähdrescher der Pflanzen tötet bis zu 90% der Eier, 90% der Raupen und 10% der Schmetterlinge"
+        class="toggle-container"
+      >
+        <input type="checkbox" class="toggle" id="toggle3" />
+        <label for="toggle3"></label>
+        <span id="Regen" ><b>Mähdrescher</b></span>
+      </div>
+
+      <div
+        title="Die Dürre tötet bis zu 70% der Raupen und 30% der Schmetterlinge"
+        class="toggle-container"
+      >
+        <input type="checkbox" class="toggle" id="toggle4" />
+        <label for="toggle4"></label>
+        <span id="Regen" ><b>Dürre</b></span>
+      </div>
+    </div>
+
+    <!-- Section for download button -->
+    <div
+      title="Downlade das Diagramm als png"
+      class="section"
+      id="download-section"
+    >
+      <button onclick="download()" class="Btn">
+        <svg
+          class="svgIcon"
+          viewBox="0 0 384 512"
+          height="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"
+          ></path>
+        </svg>
+        <span class="icon2"></span>
+        <span class="tooltip">Download</span>
+      </button>
+    </div>
+
+    <!-- Section for start and next cycle buttons -->
+    <div class="section" id="start-section">
+      <button title="Starte eine neue Simulation" onclick="startSimulation()">
+        Start
+      </button>
+      <button
+        id="Next"
+        title="Führe den nächsten Zyklus der Simulation aus"
+        onclick="nextCycle()"
+      >
+        +Zyklus
+      </button>
+      </label
+        title="Mit wie vielen Pflanzen soll die Simulation starten?"
+        for="butterfliesSlider"
+        >
+        <span id="Schmetterlinge" ><b>Schmetterlinge:</b></span>
+      </label>
+      <input
+        title="Mit wie vielen Schmetterlingen soll die Simulation starten?"
+        type="range"
+        id="butterfliesSlider"
+        min="0"
+        max="100"
+        step="1"
+        value="50"
+        oninput="updateSliderValue('butterflies', this.value)"
+      />
+      <span id="butterfliesValue">50</span>
+
+      <br />
+
+      </label
+        title="Mit wie vielen Pflanzen soll die Simulation starten?"
+        for="plantsSlider"
+      >
+
+      <span id="StartingPlants" ><b>Pflanzen:</b></span>
+
+      </label>
+      <input
+        title="Mit wie vielen Pflanzen soll die Simulation starten?"
+        type="range"
+        id="plantsSlider"
+        min="0"
+        max="100"
+        step="1"
+        value="50"
+        oninput="updateSliderValue('plants', this.value)"
+      />
+      <span id="plantsValue">50</span>
+    </div>
+
+    <!-- Section for bar diagram -->
+    <div class="section" id="bar-diagram-section">
+      <h2>Schmetterlingsanzahl</h2>
+      <canvas id="bar-chart" width="500" height="200"></canvas>
+    </div>
+
+    <script src="simulation.js"></script>
+    <script src="buttonfunctionality.js"></script>
+    <script src="visualisation.js"></script>
+  </body>
+</html>
